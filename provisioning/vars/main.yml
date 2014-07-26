@@ -1,0 +1,6 @@
+---
+http_port: 80
+max_clients: 200
+
+mysqlservice: mysqld
+mysql_port: 3306

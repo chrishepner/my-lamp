@@ -1,0 +1,70 @@
+---
+#
+# Configuration file for individual developer.
+#
+
+
+
+# This is the local port to which port 80 is
+# forwarded in the web server VM.
+# In other words, if this is set to 8080 you
+# will be able to access the HTTP server via
+# http://localhost:8080
+forwarded_http_port: 8080
+
+# Likewise, this is the port for HTTPS,
+# accessed like the following:
+# https://localhost:8443
+#forwarded_https_port: 8443
+
+# This is the local port to which port 3306 is
+# forwarded in the web server VM.
+# You will be able to access the database via a
+# MySQL client via this port.
+forwarded_mysql_port: 3306
+
+
+
+#  This specifies if the server is provisioned
+#  with settings appropriate for development
+#  or production. Setting this to 'development'
+#  provides verbose in-browser PHP error reporting,
+#  while setting this value to 'production'
+#  provides more secure defaults.
+# 
+#  Leaving this as 'development' is recommended.
+env: "development"
+
+
+# "synced" defines folders to forward to the
+#  virtual machine. local_path is the
+#  path on your local machine, and server_path
+#  is on the remove machine.
+#
+#  The web root is /sites/, so you will usually
+#  set server_path to /sites/yoursite
+#  so it is accessible at localhost:8081/yoursite
+#
+# After modifying this file, you will need to run 
+# 'vagrant reload' for your changes to take effect.
+synced:
+  - local_path: /Users/chrishepner/dev/ansible
+    server_path: /var/www/html
+
+
+# User accounts given access to the MySQL database.
+# This is provisioned after any accounts specified
+# after the provisioning script.
+database_users:
+  - name: testuser
+    password: ""
+    priv: "*.*:ALL" #optional, defaults to *.*:ALL
+
+
+# List of databases.
+# Again, this is provisioned after any accounts
+# specified after the provisioning script.
+databases:
+  - name: testdb
+    blah: x
+

@@ -1,0 +1,17 @@
+---
+#db: tasks/main.yml
+# MySQL database provisioning
+- include: mysql_setup.yml
+
+# Setup users
+
+#- name: Create Application DB User
+#  mysql_user: name={{ dbuser }} password={{ upassword }} priv=*.*:ALL state=present
+#- name: Copy my Database
+#  copy: src=my_db_dump.sql dest=/tmp
+#- name: Create my database
+#  mysql_db: name=mydb state=present
+#- name: Import SOB database
+#  shell: cat /tmp/my_db_dump.sql | mysql -u root mydb
+#- name: Set MyDB user
+#  mysql_user: name=mydbuser password=pwgoeshere host=% state=present priv=*.*:ALL

@@ -1,0 +1,30 @@
+---
+# These tasks install httpd (Apache) and PHP modules
+
+- name: install apache and php etc
+  yum: name={{ item }} state=present
+  with_items:
+    - httpd
+    - php
+    - php-common
+    - php-mysql
+    - php-pdo
+    - php-gd
+    - php-mbstring
+    - php-simplexml
+    - php-pear
+    - php-soap
+- name: write the apache config file
+  template: src=httpd.j2 dest=/etc/httpd/conf/httpd.conf
+  notify:
+  - restart apache
+- name: write the PHP config file
+  template: src=php.ini.j2 dest=/etc/php.ini
+  notify:
+  - restart apache
+- name: ensure apache is running
+  service: name=httpd state=started enabled=yes
+  #- name: insert iptables rule
+  #  lineinfile: dest=/etc/sysconfig/iptables state=present regexp="{{ http_port }}"
+  #            insertafter="^:OUTPUT " line="-A INPUT -p tcp  --dport {{ http_port }} -j  ACCEPT"
+  #  notify: restart iptables

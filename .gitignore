@@ -1,0 +1,13 @@
+
+.DS_Store
+
+#Vagrant stuff
+/.vagrant
+boxes/*
+
+# IDE
+.idea/*
+*.iml
+
+# Local configuration
+/local.yml

@@ -1,0 +1,16 @@
+---
+
+- name: Configure and deploy combined webserver/database test server
+  hosts: all
+
+  vars_files:
+    - vars/main.yml
+
+  remote_user: vagrant
+  sudo: yes
+  sudo_user: root
+
+  roles:
+    - common
+    - web
+    - db

@@ -1,0 +1,27 @@
+---
+# db/tasks/mysql_setup.yml
+
+- name: Install Mysql package
+  yum: name={{ item }} state=installed
+  with_items:
+   - mysql-server
+   - MySQL-python
+   - libselinux-python
+   - libsemanage-python
+
+#- name: Configure SELinux to start mysql on any port
+#  seboolean: name=mysql_connect_a
+
+- name: Create Mysql configuration file
+  template: src=my.cnf.j2 dest=/etc/my.cnf
+  notify:
+  - restart mysql
+
+- name: Start MySQL Service
+  service: name=mysqld state=started enabled=yes
+
+#- name: insert iptables rule
+#  lineinfile: dest=/etc/sysconfig/iptables state=present regexp="{{ mysql_port }}"
+#            insertafter="^:OUTPUT " line="-A INPUT -p tcp  --dport {{ mysql_port }} -j  ACCEPT"
+#  notify: restart iptables
+
