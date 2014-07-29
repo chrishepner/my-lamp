@@ -48,23 +48,23 @@ env: "development"
 # After modifying this file, you will need to run 
 # 'vagrant reload' for your changes to take effect.
 synced:
-  - local_path: /Users/chrishepner/dev/ansible
+  - local_path: /home/yourlocal/dev/ansible
     server_path: /var/www/html
 
 
-# User accounts given access to the MySQL database.
+# List of MySQL databases.
 # This is provisioned after any accounts specified
-# after the provisioning script.
-database_users:
-  - name: testuser
-    password: ""
-    priv: "*.*:ALL" #optional, defaults to *.*:ALL
-
-
-# List of databases.
-# Again, this is provisioned after any accounts
-# specified after the provisioning script.
+# by the provisioning script.
 databases:
   - name: testdb
-    blah: x
+    #import: testdb.sql
+
+
+# MySQL database users.
+# Again, this is provisioned after any accounts
+# specified after the provisioning script.
+database_users:
+  - name: testuser
+    password: "testpass"
+    privileges: "*.*:ALL" #optional, defaults to *.*:ALL
 

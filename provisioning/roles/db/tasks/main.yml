@@ -3,10 +3,40 @@
 # MySQL database provisioning
 - include: mysql_setup.yml
 
-# Setup users
+- name: update mysql root password for all root accounts
+  mysql_user: name=root host={{ item }} password={{ mysql_root_db_pass }}
+  with_items:
+   - 127.0.0.1
+   - ::1
+   - localhost
 
-#- name: Create Application DB User
-#  mysql_user: name={{ dbuser }} password={{ upassword }} priv=*.*:ALL state=present
+- name: Set up .my.cnf with root credentials
+  template: src=.my.cnf.j2 dest=~/.my.cnf mode=0600
+  sudo: no
+
+- name: Remove the test database
+  mysql_db: name=test state=absent
+
+
+- name: Copy database dumps from local
+  copy: src={{ item }} dest=/tmp/dbimport/
+  with_fileglob:
+  - "db/*"
+- name: Setup MySQL databases from local.yml
+  mysql_db: name={{ item.name }}
+            state=import
+            target="/tmp/dbimport/{{ item.import }}"
+  when: item.import is defined
+  with_items: databases
+  sudo: no
+
+- name: Setup MySQL users from local.yml
+  mysql_user: name={{ item.name }}
+              password={{ item.password }}
+              priv={{ item.privileges|default('*.*:ALL', true) }}
+              state=present
+  with_items: database_users
+
 #- name: Copy my Database
 #  copy: src=my_db_dump.sql dest=/tmp
 #- name: Create my database

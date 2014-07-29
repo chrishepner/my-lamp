@@ -7,10 +7,8 @@
     - vars/main.yml
 
   remote_user: vagrant
-  sudo: yes
-  sudo_user: root
 
   roles:
     - common
-    - web
-    - db
+    - {role: web, tags: http}
+    - {role: db, tags: mysql }

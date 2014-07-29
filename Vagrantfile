@@ -65,9 +65,11 @@ end
     if local_exists then
         ansible.extra_vars = {
             env: local_config['env'], # "development" or "production"
-            db_setup: local_config['databases']
+            database_users: local_config['database_users'],
+            databases: local_config['databases'],
         }
     end
     ansible.playbook = "provisioning/site.yml"
+    ansible.tags="mysql"
   end
 end
