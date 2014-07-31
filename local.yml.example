@@ -40,11 +40,7 @@ env: "development"
 #  virtual machine. local_path is the
 #  path on your local machine, and server_path
 #  is on the remove machine.
-#
-#  The web root is /sites/, so you will usually
-#  set server_path to /sites/yoursite
-#  so it is accessible at localhost:8081/yoursite
-#
+# 
 # After modifying this file, you will need to run 
 # 'vagrant reload' for your changes to take effect.
 synced:
